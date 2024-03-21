@@ -26,17 +26,20 @@ class DiceFragment : Fragment() {
         arguments?.let {
             sides = it.getInt(DIE_SIDES)
         }
+
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        val view = inflater.inflate(R.layout.fragment_dice, container, false)
+        viewModel = ViewModelProvider(requireActivity())[DiceViewModel::class.java]
         return inflater.inflate(R.layout.fragment_dice, container, false).apply {
             findViewById<Button>(R.id.rollButton).setOnClickListener {
 
                 // Generate random number
-                (Random.nextInt(sides!!) + 1).toString()
+                viewModel.getRoll(6)
             }
         }
     }
